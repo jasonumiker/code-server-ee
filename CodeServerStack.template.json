@@ -537,48 +537,12 @@
         "aws:cdk:path": "CodeServerStack/SecurityGroup/Resource"
       }
     },
-    "CodeServerInstanceInstanceRole6C476820": {
-      "Type": "AWS::IAM::Role",
-      "Properties": {
-        "AssumeRolePolicyDocument": {
-          "Statement": [
-            {
-              "Action": "sts:AssumeRole",
-              "Effect": "Allow",
-              "Principal": {
-                "Service": {
-                  "Fn::Join": [
-                    "",
-                    [
-                      "ec2.",
-                      {
-                        "Ref": "AWS::URLSuffix"
-                      }
-                    ]
-                  ]
-                }
-              }
-            }
-          ],
-          "Version": "2012-10-17"
-        },
-        "Tags": [
-          {
-            "Key": "Name",
-            "Value": "CodeServerStack/CodeServerInstance"
-          }
-        ]
-      },
-      "Metadata": {
-        "aws:cdk:path": "CodeServerStack/CodeServerInstance/InstanceRole/Resource"
-      }
-    },
     "CodeServerInstanceInstanceProfile8412E89B": {
       "Type": "AWS::IAM::InstanceProfile",
       "Properties": {
         "Roles": [
           {
-            "Ref": "CodeServerInstanceInstanceRole6C476820"
+            "Ref": "CodeServerRoleF29D2C2A"
           }
         ]
       },
@@ -634,7 +598,7 @@
         }
       },
       "DependsOn": [
-        "CodeServerInstanceInstanceRole6C476820"
+        "CodeServerRoleF29D2C2A"
       ],
       "Metadata": {
         "aws:cdk:path": "CodeServerStack/CodeServerInstance/Resource"
@@ -682,11 +646,11 @@
         "GroupDescription": "Automatically created Security Group for ELB CodeServerStackLB71640C72",
         "SecurityGroupEgress": [
           {
-            "CidrIp": "255.255.255.255/32",
-            "Description": "Disallow all traffic",
-            "FromPort": 252,
-            "IpProtocol": "icmp",
-            "ToPort": 86
+            "CidrIp": "0.0.0.0/0",
+            "Description": "from 0.0.0.0/0:TCP 8080",
+            "FromPort": 8080,
+            "IpProtocol": "tcp",
+            "ToPort": 8080
           }
         ],
         "SecurityGroupIngress": [
