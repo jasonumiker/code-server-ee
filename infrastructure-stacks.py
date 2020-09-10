@@ -71,7 +71,7 @@ class CodeServerStack(core.Stack):
         code_server_instance.user_data.add_commands("ln -s ~/.local/lib/code-server-3.5.0/bin/code-server ~/.local/bin/code-server")
         code_server_instance.user_data.add_commands("echo \"bind-addr: 0.0.0.0:8080\" > ~/.config/code-server/config.yaml")
         code_server_instance.user_data.add_commands("echo \"auth: password\" >> ~/.config/code-server/config.yaml")
-        code_server_instance.user_data.add_commands("echo \"password: AWSServerless!\" >> ~/.config/code-server/config.yaml")
+        code_server_instance.user_data.add_commands("echo \"password: $(curl -s http://169.254.169.254/latest/meta-data/instance-id)\" >> ~/.config/code-server/config.yaml")
         code_server_instance.user_data.add_commands("echo \"cert: false\" >> ~/.config/code-server/config.yaml")
         code_server_instance.user_data.add_commands("~/.local/bin/code-server &")
 
