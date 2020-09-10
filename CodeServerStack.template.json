@@ -594,7 +594,7 @@
           }
         ],
         "UserData": {
-          "Fn::Base64": "#!/bin/bash\nmkdir -p ~/.local/lib ~/.local/bin ~/.config/code-server\ncurl -fL https://github.com/cdr/code-server/releases/download/v3.5.0/code-server-3.5.0-linux-amd64.tar.gz | tar -C ~/.local/lib -xz\nmv ~/.local/lib/code-server-3.5.0-linux-amd64 ~/.local/lib/code-server-3.5.0\nln -s ~/.local/lib/code-server-3.5.0/bin/code-server ~/.local/bin/code-server\necho \"bind-addr: 0.0.0.0:8080\" > ~/.config/code-server/config.yaml\necho \"auth: password\" >> ~/.config/code-server/config.yaml\necho \"password: AWSServerless!\" >> ~/.config/code-server/config.yaml\necho \"cert: false\" >> ~/.config/code-server/config.yaml\n~/.local/bin/code-server &"
+          "Fn::Base64": "#!/bin/bash\nmkdir -p ~/.local/lib ~/.local/bin ~/.config/code-server\ncurl -fL https://github.com/cdr/code-server/releases/download/v3.5.0/code-server-3.5.0-linux-amd64.tar.gz | tar -C ~/.local/lib -xz\nmv ~/.local/lib/code-server-3.5.0-linux-amd64 ~/.local/lib/code-server-3.5.0\nln -s ~/.local/lib/code-server-3.5.0/bin/code-server ~/.local/bin/code-server\necho \"bind-addr: 0.0.0.0:8080\" > ~/.config/code-server/config.yaml\necho \"auth: password\" >> ~/.config/code-server/config.yaml\necho \"password: $(curl -s http://169.254.169.254/latest/meta-data/instance-id)\" >> ~/.config/code-server/config.yaml\necho \"cert: false\" >> ~/.config/code-server/config.yaml\n~/.local/bin/code-server &"
         }
       },
       "DependsOn": [
