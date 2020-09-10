@@ -82,6 +82,7 @@ class CodeServerStack(core.Stack):
         )
         listener = lb.add_listener("Listener", port=80)
         listener.connections.allow_default_port_from_any_ipv4("Open to the Internet")
+        listener.connections.allow_to_any_ipv4(port_range=ec2.Port(string_representation="TCP 8080", protocol=ec2.Protocol.TCP, from_port=8080, to_port=8080))
         listener.add_targets("Target", port=8080, targets=[elbv2.InstanceTarget(
             instance_id=code_server_instance.instance_id,
             port=8080
