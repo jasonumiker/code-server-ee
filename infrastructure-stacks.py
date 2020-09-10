@@ -57,6 +57,7 @@ class CodeServerStack(core.Stack):
             self, "CodeServerInstance",
             instance_type=ec2.InstanceType("t3.large"),
             machine_image=amzn_linux,
+            role=code_server_role,
             vpc=code_server_vpc,
             vpc_subnets=ec2.SubnetSelection(subnet_type=ec2.SubnetType.PUBLIC),
             security_group=security_group,
